@@ -55,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Widget _buildItem(Article article) {
   return new Padding(
+    key: Key(article.text), // to avoid open other article when remove the first one
     padding: const EdgeInsets.all(16.0),
     child: new ExpansionTile(title: new Text(article.text, style: new TextStyle(fontSize: 24.0),),
       children: <Widget>[
