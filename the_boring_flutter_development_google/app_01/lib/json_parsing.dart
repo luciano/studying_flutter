@@ -1,5 +1,9 @@
 import 'dart:convert' as json; // importing by name to avoid name conflicts
+import 'package:meta/meta.dart';
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+import 'package:built_collection/built_collection.dart';
+import 'serializers.dart';
 
 part 'json_parsing.g.dart';
 
@@ -7,7 +11,45 @@ part 'json_parsing.g.dart';
 // use watch for changes get in the class fast
 // flutter packages pub run build_runner watch
 abstract class Article implements Built<Article, ArticleBuilder> {
+  static Serializer<Article> get serializer => _$articleSerializer;
+
   int get id;
+
+  @nullable
+  bool get deleted;
+  String get type;
+
+  @nullable
+  String get by;
+  int get time;
+
+  @nullable
+  String get text;
+
+  @nullable
+  bool get dead;
+
+  @nullable
+  int get parent;
+
+  @nullable
+  int get poll;
+
+  BuiltList<int> get kids;
+
+  @nullable
+  String get url;
+
+  @nullable
+  int get score;
+
+  @nullable
+  String get title;
+
+  BuiltList<int> get parts;
+
+  @nullable
+  int get descendants;
 
   Article._();
   factory Article([updates(ArticleBuilder b)]) = _$Article;
@@ -55,7 +97,12 @@ List<int> parseTopStories(String jsonString) {
 }
 
 Article parseArticle(String jsonString) {
-  return null;
+  // using serialize
+  final parsed = json.jsonDecode(jsonString);
+  Article article = standardSerializaers.deserializeWith(Article.serializer, parsed);
+  return article;
+
+  // other way
   // throw UnimplementedError();
 //  final parsed = json.jsonDecode(jsonString); // map of string
 //  // make new constructor in the Article
