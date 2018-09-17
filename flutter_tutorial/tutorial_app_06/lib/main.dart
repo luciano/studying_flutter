@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './FirstPage.dart' as fisrt;
+import './FirstPage.dart' as first;
 import './SecondPage.dart' as second;
 import './ThirdPage.dart' as third;
 
@@ -58,7 +58,7 @@ class MyTabsState extends State<MyTabs> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: controller,
         children: <Widget>[
-          fisrt.First(),
+          first.First(),
           second.Second(),
           third.Third()
         ]
